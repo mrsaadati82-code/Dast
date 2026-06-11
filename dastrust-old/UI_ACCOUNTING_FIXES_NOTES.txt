@@ -1,0 +1,39 @@
+Dast Rast UI + Accounting usability fixes
+
+Run:
+- Extract zip
+- Double click RUN-WINDOWS-NO-INSTALL.bat
+- Open http://localhost:8787
+
+Fixes in this build:
+1) Hamburger menu is now categorized with accordion submenus:
+   - Daily operations
+   - Treasury and accounts
+   - Professional accounting
+   - Project and customer
+   - Assistant and settings
+   Only one group stays open at a time, so the menu is not crowded.
+
+2) Assistant chat layout:
+   - Message composer is fixed inside chat.
+   - Messages start from bottom like a real messenger.
+   - New messages append to the bottom.
+   - Bottom navigation no longer jumps upward in chat.
+
+3) Brand assets:
+   - Uses provided typography images for dark/light themes.
+   - Uses provided logo mark inside purple brand box.
+
+4) More real CRUD operations:
+   - Persons: add, edit, delete, ledger view
+   - Accounts: add, edit, delete
+   - Chart of accounts: add, edit, delete
+   - Journal entries: add, delete
+   - Projects: add, edit payment/status, delete
+   - Invoices/proformas: add, edit amount, delete
+   - Cheques already support add/delete
+
+5) Portable backend updated with PUT/DELETE endpoints for the above modules.
+
+Note:
+This is still a local JSON database MVP. For production accounting, the next technical step is moving from JSON file to PostgreSQL/MySQL and adding audit logs, permissions, attachments, and immutable accounting document controls.

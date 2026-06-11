@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * { font-family: 'Vazirmatn', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  html { direction: rtl; }
+  body { margin: 0; background: #050507; }
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-2xl border border-black/10 bg-white px-3 py-3 text-xs text-zinc-900 outline-none transition focus:border-[#3b38a0] dark:border-white/10 dark:bg-zinc-950 dark:text-white;
+  }
+  .primary-btn {
+    @apply w-full rounded-2xl bg-gradient-to-r from-[#3b38a0] to-[#7a85c1] py-3 text-xs font-bold text-white shadow-lg shadow-[#3b38a0]/20 transition hover:opacity-95 disabled:opacity-50;
+  }
+  .icon-btn {
+    @apply grid h-10 w-10 place-items-center rounded-2xl border border-black/10 bg-zinc-100 text-zinc-700 transition hover:scale-105 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200;
+  }
+  .pill {
+    @apply rounded-2xl bg-white px-3 py-2 text-xs font-bold text-zinc-500 dark:bg-zinc-950;
+  }
+  .active-red { @apply bg-red-500 text-white dark:bg-red-500; }
+  .active-green { @apply bg-emerald-500 text-white dark:bg-emerald-500; }
+  .badge { @apply rounded-full bg-[#3b38a0]/10 px-2 py-1 text-[9px] font-bold text-[#3b38a0] dark:bg-[#b2b0e8]/10 dark:text-[#b2b0e8]; }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes message-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-message { animation: message-in .25s ease-out; }
