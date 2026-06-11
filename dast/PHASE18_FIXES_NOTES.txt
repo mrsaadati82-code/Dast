@@ -1,0 +1,36 @@
+فاز ۱۸ — رفع پایدار دو باگ + جلوگیری از کش نسخهٔ قدیمی
+=====================================================
+
+⭐ کشف کلیدی: index.html بدون هدر no-cache سرو می‌شد، پس مرورگر گوشی
+   نسخهٔ قدیمی build را نشان می‌داد و تغییرات دیده نمی‌شد.
+   - server/index.js: express.static با setHeaders → index.html: no-store/no-cache؛
+     SPA fallback هم Cache-Control:no-store گرفت.
+   - server-standalone.js: برای فایل html هدر Cache-Control:no-store اضافه شد.
+   ⇒ از این پس همیشه آخرین نسخه بارگذاری می‌شود (هر دو سرور هماهنگ).
+
+۱) هایلایت/انتخاب متن گزینهٔ اول هنگام لمس طولانی:
+   - علت: قبلاً فقط -webkit-touch-callout گذاشته شده بود، اما user-select:none
+     روی body اعمال نشده بود (و style هوک گاهی override می‌شد).
+   - راه‌حل (src/index.css): body → user-select:none (همهٔ پیشوندها) +
+     -webkit-tap-highlight-color:transparent.
+     استثناها: input/textarea/select/[contenteditable] و کلاس .selectable
+     قابل انتخاب ماندند.
+   - useLongPress هنگام باز شدن منو getSelection().removeAllRanges() می‌زند.
+
+۲) ویس: «متنی تشخیص داده نشد»:
+   - تقویت منطق startVoice:
+       * بررسی navigator.onLine قبل از شروع (پیام شفاف اگر آفلاین بود).
+       * continuous=true + interimResults.
+       * gotSpeechRef: ردیابی اینکه آیا اصلاً صدایی شنیده شد.
+       * SILENCE_MS به ۳۰۰۰ افزایش یافت تا زود نبُرد.
+       * مدیریت خطاهای audio-capture/network با پیام دقیق.
+   - پنل «جزئیات فنی ضبط» (voiceLog): رویدادهای واقعی
+     (شروع شنیدن، میکروفون فعال، صدا دریافت شد، گفتار آغاز/پایان، متن، خطا، پایان)
+     روی صفحه نمایش داده می‌شود تا علت دقیق مشخص شود.
+
+⚠️ اگر باز هم ویس کار نکرد، پنل «جزئیات فنی ضبط» را باز کن و محتوایش را بفرست
+   تا علت دقیق (network/no-speech/not-allowed/...) مشخص شود. توجه: Web Speech
+   روی Chrome به اینترنت نیاز دارد؛ روی Firefox پشتیبانی نمی‌شود.
+
+تست‌ها: tsc بدون خطا، node --check هر دو سرور OK، build موفق (~465KB).
+        هدر no-cache روی هر دو سرور با curl تأیید شد.

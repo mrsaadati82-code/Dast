@@ -1,0 +1,82 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  * { font-family: 'Vazirmatn', 'Tahoma', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  html, body { height: 100%; height: 100dvh; }
+  html { direction: rtl; }
+  body {
+    margin: 0;
+    background: #050507;
+    /* جلوگیری از اسکرول/کشیده‌شدن کل صفحه؛ فقط محتوای داخل اپ اسکرول می‌شود */
+    overflow: hidden;
+    overscroll-behavior: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    /* ارتفاع پایدار روی موبایل مستقل از باز/بسته شدن نوار آدرس */
+    height: 100dvh;
+    /* جلوگیری از انتخاب/هایلایت متن و منوی برش هنگام لمس طولانی روی کل اپ */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* متن داخل اینپوت‌ها و نواحی قابل ویرایش باید قابل انتخاب بماند */
+  input, textarea, select, [contenteditable] { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
+  /* پیام‌های چت قابل انتخاب/کپی بمانند */
+  .selectable, .selectable * { -webkit-user-select: text; user-select: text; }
+  #root { height: 100%; height: 100dvh; display: flex; flex-direction: column; color: #09090b; }
+  html.dark #root, html.dark body { color: #f4f4f5; }
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-2xl border border-black/10 bg-white px-3 py-3 text-xs text-zinc-900 outline-none transition focus:border-[#3b38a0] dark:border-white/10 dark:bg-zinc-950 dark:text-white;
+  }
+  .primary-btn {
+    @apply w-full rounded-2xl bg-gradient-to-r from-[#3b38a0] to-[#7a85c1] py-3 text-xs font-bold text-white shadow-lg shadow-[#3b38a0]/20 transition hover:opacity-95 disabled:opacity-50;
+  }
+  .icon-btn {
+    @apply grid h-10 w-10 place-items-center rounded-2xl border border-black/10 bg-zinc-100 text-zinc-700 transition hover:scale-105 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200;
+  }
+  .pill {
+    @apply rounded-2xl bg-white px-3 py-2 text-xs font-bold text-zinc-500 dark:bg-zinc-950;
+  }
+  .active-red { @apply bg-red-500 text-white dark:bg-red-500; }
+  .active-green { @apply bg-emerald-500 text-white dark:bg-emerald-500; }
+  .badge { @apply rounded-full bg-[#3b38a0]/10 px-2 py-1 text-[9px] font-bold text-[#3b38a0] dark:bg-[#b2b0e8]/10 dark:text-[#b2b0e8]; }
+  /* دکمهٔ شیشه‌ای با کنتراست درست در هر دو تم */
+  .glass-btn { @apply rounded-2xl border border-black/10 bg-black/5 text-zinc-700 backdrop-blur-md transition hover:bg-black/10 active:scale-95 dark:border-white/20 dark:bg-white/10 dark:text-zinc-100 dark:hover:bg-white/20; }
+  /* دکمه‌های عملیات مینیمال با حالت دکمه‌ای مشخص */
+  .op-btn { @apply rounded-xl border border-[#3b38a0]/20 bg-[#3b38a0]/8 px-2.5 py-1 text-[10px] font-bold text-[#3b38a0] transition hover:bg-[#3b38a0]/15 active:scale-95 dark:border-[#b2b0e8]/25 dark:bg-[#b2b0e8]/10 dark:text-[#b2b0e8]; }
+  .op-btn-danger { @apply rounded-xl border border-red-500/25 bg-red-500/8 px-2.5 py-1 text-[10px] font-bold text-red-600 transition hover:bg-red-500/15 active:scale-95 dark:text-red-400; }
+  .op-btn-green { @apply rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-2.5 py-1 text-[10px] font-bold text-emerald-600 transition hover:bg-emerald-500/15 active:scale-95 dark:text-emerald-400; }
+}
+
+/* رنگ متن انتخاب‌شده: در تم روشن بنفش تیره، در تم تاریک بنفش روشن */
+::selection { background: rgba(59,56,160,.25); color: #3b38a0; }
+.dark ::selection { background: rgba(122,133,193,.35); color: #e9e8fb; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes message-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-message { animation: message-in .25s ease-out; }
+
+/* ===== موج صوتی نرم و متحرک (مثل Siri / Gemini) ===== */
+@keyframes wave-drift-1 { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes wave-drift-2 { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes wave-breathe { 0%,100% { transform: scaleY(0.55); } 50% { transform: scaleY(1); } }
+.wave-layer { transform-origin: center; will-change: transform; }
+.wave-drift-1 { animation: wave-drift-1 5.5s linear infinite; }
+.wave-drift-2 { animation: wave-drift-2 7.5s linear infinite; }
+.wave-breathe { animation: wave-breathe 2.4s ease-in-out infinite; }
+
+/* پالس نرم دایره مرکزی هنگام شنیدن */
+@keyframes mic-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(122,133,193,0.35); } 50% { box-shadow: 0 0 0 18px rgba(122,133,193,0); } }
+.mic-glow { animation: mic-glow 2s ease-in-out infinite; }
