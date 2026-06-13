@@ -1,0 +1,52 @@
+Dast Rast Phase 2
+
+Run without npm install:
+1) Extract zip
+2) Double click RUN-WINDOWS-NO-INSTALL.bat
+3) Open http://localhost:8787
+
+Fixes:
+- Assistant chat input is now sticky/fixed while messages scroll.
+- Bottom navigation remains fixed and no longer requires scrolling to reach it.
+
+Accounting Phase 2:
+- Chart of accounts / دفتر کل و سرفصل حساب‌ها
+- Double-entry journal entries / سند حسابداری دوطرفه
+- Real debit/credit lines per journal entry
+- Trial balance / تراز آزمایشی
+- Profit & loss / صورت سود و زیان
+- Cash flow report / جریان نقدی
+- Balances of persons, projects, experts and treasury accounts
+
+Project & Customer:
+- Customers based on persons module
+- Projects with customer, amount, paid, balance and debtor status
+- Invoice and proforma invoice module
+- Project receivables via assistant
+- Project stages foundation: proforma, start, execution, delivery, settlement
+
+Advanced AI / Local Assistant:
+- Stronger training memory
+- Admin custom rules
+- Multi-operation messages with ؛ or ;
+- Clarification foundation for ambiguous persons
+- Local parser still works without external AI token
+- OpenAI / Groq / OpenRouter settings remain in admin panel
+
+PWA:
+- manifest.webmanifest
+- service worker
+- installable app shell
+- offline cache foundation
+- browser push notification event handler foundation
+
+Note about real push notifications:
+Real remote push requires HTTPS + VAPID + server-side push sender. The PWA foundation is ready, but production push needs deployment on a Node-capable host/VPS.
+
+Example assistant commands:
+- حقوق ۲۲ میلیون واریز شد؛ ۳۰ تومن پول تاکسی دادم
+- ثبت سند فروش نقدی ۱۰ میلیون
+- پروژه طراحی سایت برای مشتری رضایی 50 میلیون
+- صدور فاکتور برای مشتری رضایی ۲۰ میلیون
+- واریز 10 میلیون به صندوق اصلی
+- انتقال 5 میلیون از صندوق اصلی به بانک ملت
